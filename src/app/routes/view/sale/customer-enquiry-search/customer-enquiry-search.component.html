@@ -1,0 +1,74 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" class="ui-button-info" label="List" icon="fa fa-list" (click)="getcustomerEnquiryReport()"></button>
+        <button pButton type="button" class="ui-button-success" label="Save" icon="fa fa-floppy-o"></button>
+        <button pButton type="button" class="ui-button-danger" label="Cancel" icon="fa fa-times"></button>
+    </div>
+</p-toolbar>
+<div class="card card-w-title">
+    <p-panel>
+        <p-header>
+            {{'Customer Enquiry'| translate}}
+        </p-header>
+        <div class="p-grid">
+            <div class="p-col-1 p-md-1 p-lg-1"><b>{{'Enquiry No'| translate}}</b></div>
+            <div class="p-col-3 p-md-3 p-lg-3">
+                <input id="enquiryNo" type="number" pInputText>
+            </div>
+            <div class="p-col-2 p-md-2 p-lg-2">
+                <p-checkbox label="Date Range"></p-checkbox>
+            </div>
+            <div class="p-col-1 p-md-1 p-lg-1"><b>{{'Date From'| translate}}</b></div>
+            <div class="p-col-3 p-md-3 p-lg-3">
+                <p-calendar></p-calendar>
+            </div>
+        </div>
+        <div class="p-grid">
+            <div class="p-col-1 p-md-1 p-lg-1"><b>{{'Customer Name'| translate}}</b></div>
+            <div class="p-col-3 p-md-3 p-lg-3">
+                <p-dropdown [options]="customerNameList" placeholder="--- Select Customer Name ---"
+                    optionLabel="locationMasterLocationName">
+                </p-dropdown>
+            </div>
+            <div class="p-col-2 p-md-2 p-lg-2">
+                
+            </div>
+            <div class="p-col-1 p-md-1 p-lg-1"><b>{{'Date To'| translate}}</b></div>
+            <div class="p-col-3 p-md-3 p-lg-3">
+                <p-calendar></p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12" style="justify-content: flex-end; display: flex">
+            <button pButton class="ui-button-info" [label]='"Submit"| translate'></button>
+            <button pButton class="ui-button-warning" [label]='"Clear"| translate'></button>
+        </div>
+    </p-panel>
+</div>
+<div class="card card-w-title">
+    <p-panel>
+        <p-header>
+            {{'Data'| translate}}
+        </p-header>
+        <div class="grid">
+            <hot-table [hotId]="hotid" height="auto" [data]="dataset" [licenseKey]="licensekey"
+                [settings]="customerEnquirySearch">
+                <hot-column data="Customer_Master_Customer_Name" [readOnly]="true" title="Customer Name"></hot-column>
+                <hot-column data="Enquiry_Master_Enquiry_ID" [readOnly]="true" title="Enquiry No"></hot-column>
+                <hot-column data="Enquiry_About_Enquiry_About" title="Enquiry About"></hot-column>
+                <hot-column data="Business_Type_Master_Business_Type_Name" title="Business Type"></hot-column>
+                <hot-column data="Currency_Master_Currency_Name" title="Currency Name"></hot-column>
+                <hot-column data="Enquiry_Master_Contact_Name" title="Contact Name"></hot-column>
+                <hot-column data="Enquiry_Master_Contact_Email" title="Contact Email"></hot-column>
+                <hot-column data="Enquiry_Master_Enquiry_Date" title="Enquiry Date"></hot-column>
+                <hot-column data="Enquiry_Status_Enquiry_Status" title="Enquiry Status"></hot-column>
+                <hot-column data="Location_Master_Location_Name" title="Location Name"></hot-column>
+                <hot-column data="Enquiry_Master_Remarks" title="Remarks"></hot-column>
+            </hot-table>
+        </div>
+    </p-panel>
+</div>

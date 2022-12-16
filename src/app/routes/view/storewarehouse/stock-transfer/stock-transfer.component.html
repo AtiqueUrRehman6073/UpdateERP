@@ -1,0 +1,189 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" [disabled]="btnFlag.new" label="New" icon="pi pi-plus" (click)="createNew()"
+            class="ui-button-info"></button>
+        <button pButton type="button" [disabled]="btnFlag.edit" label="Edit" icon="fa fa-pencil"
+            class="ui-button-success"></button>
+        <button pButton type="button" [disabled]="btnFlag.cancel" class="ui-button-danger" label="Cancel"
+            icon="fa fa-ban"></button>
+        <button pButton type="button" icon="fa fa-floppy-o" [disabled]="btnFlag.save" class="ui-button-success"
+            label="Save"></button>
+        <button pButton type="button" [disabled]="btnFlag.list" label="List" icon="fa fa-list"
+            class="ui-button-info"></button>
+        <button pButton type="button" [disabled]="btnFlag.delete" class="ui-button-danger" label="Delete"
+            icon="fa fa-trash"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <div style="display: inline-block;" class="ui-inputgroup">
+            <input type="text" pInputText placeholder="Search">
+            <button pButton type="button" icon="pi pi-search"></button>
+        </div>
+        <button pButton type="button" label="Print" [disabled]="btnFlag.save" icon="fa fa-print"
+            class="ui-button-success"></button>
+        <button pButton type="button" label="Exit" icon="fa fa-sign-out"></button>
+        <p-checkbox label="Suppress Allocation in Print"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="ui-grid" [formGroup]='StockTransferGroup'>
+    <div class="ui-grid-col-9">
+        <p-panel>
+            <p-header>
+                {{'Stock Transfer Details'| translate}}
+            </p-header>
+            <div class="p-grid inputGroup">
+                <label class="p-col-2">{{'Voucher No.'| translate}}</label>
+                <div class="p-col-2 p-md-2">
+                    <div class="ui-inputgroup">
+                        <input pInputText formControlName="VoucherNo" #voucherNo id="voucherNo">
+                    </div>
+                    <div class="error" *ngIf="f.VoucherNo.touched && f.VoucherNo.invalid">
+                        <span>Voucher No. is Mandatory Field*</span>
+                    </div>
+                </div>
+                <label class="p-col-1">{{'Date'| translate}}</label>
+                <div class="p-col-2 p-md-2">
+                    <div class="ui-inputgroup">
+                        <p-calendar class="w-100" useUtc formControlName='VoucherDate' id="voucherDate">
+                        </p-calendar>
+                    </div>
+                    <div class="error" *ngIf="f.VoucherDate.touched && f.VoucherDate.invalid">
+                        <span>Voucher Date is Mandatory Field*</span>
+                    </div>
+                </div>
+                <label class="p-col-1">{{'Job'| translate}}</label>
+                <div class="p-col-4 p-md-4">
+                    <div class="ui-inputgroup">
+                        <p-dropdown style="width: 100%;" [options]="jobList" formControlName="SelectedJob"
+                            optionLabel="jobMasterJobName">
+                        </p-dropdown>
+                    </div>
+                    <div class="error" *ngIf="f.SelectedJob.touched && f.SelectedJob.invalid">
+                        <span>Item Name is Mandatory Field*</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-grid inputGroup">
+                <label class="p-col-2">{{'Location From'| translate}}</label>
+                <div class="p-col-4 p-md-4">
+                    <div class="ui-inputgroup">
+                        <p-dropdown style="width: 100%;" [options]="locationList" formControlName="LocationFrom"
+                            optionLabel="locationMasterLocationName">
+                        </p-dropdown>
+                    </div>
+                    <div class="error" *ngIf="f.LocationFrom.touched && f.LocationFrom.invalid">
+                        <span>Location From is Mandatory Field*</span>
+                    </div>
+                </div>
+                <label class="p-col-2">{{'Location To'| translate}}</label>
+                <div class="p-col-4 p-md-4">
+                    <div class="ui-inputgroup">
+                        <p-dropdown style="width: 100%;" [options]="locationList" formControlName="LocationTo"
+                            optionLabel="locationMasterLocationName">
+                        </p-dropdown>
+                    </div>
+                    <div class="error" *ngIf="f.LocationTo.touched && f.LocationTo.invalid">
+                        <span>Location To is Mandatory Field*</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-grid inputGroup">
+                <label class="p-col-2">{{'Narrration'| translate}}</label>
+                <div class="ui-grid-col-10">
+                    <textarea class="p-col-2" formControlName="Narration"
+                        style="min-height:80px;width:100%;margin-top:5px;" pInputTextarea></textarea>
+                </div>
+                <div class="error" *ngIf="f.Narration.touched && f.Narration.invalid">
+                    <span>Item Name is Mandatory Field*</span>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+    <div class="ui-grid-col-3">
+        <p-panel>
+            <p-header>
+                {{'Outlet Transfer Details'| translate}}
+            </p-header>
+            <label>{{'Customer :'| translate}}</label>
+            <div class="p-lg-10">
+                <div class="ui-inputgroup">
+                    <input class="p-lg-10" formControlName="CustomerName" name="CustomerName"
+                        [(ngModel)]="selectedCustomer" pInputText />
+                    <button pButton type="button" (click)="showAllCustomers()" icon="pi pi-search"></button>
+                </div>
+            </div>
+            <label>{{'Department :'| translate}}</label>
+            <div class="p-lg-10">
+                <div class="ui-inputgroup">
+                    <!-- <input class="p-lg-12" pInputText [disabled]="customerDesc" /> -->
+                    <p-dropdown style="width: 100%;" [options]="departmentList" formControlName="Department"
+                        optionLabel="Department_Master_Department_Name">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-lg-10">
+                <button pButton class="ui-button-info" [label]='"Submit"| translate'></button>
+                <button pButton class="ui-button-warning" [label]='"Clear"| translate'></button>
+            </div>
+        </p-panel>
+    </div>
+</div>
+<div class="card card-w-title">
+    <p-panel>
+        <p-header>
+            {{'Data'| translate}}
+        </p-header>
+        <div class="grid">
+            <hot-table [hotId]="hotid" height="auto" [data]="dataset" [licenseKey]="licensekey"
+                [settings]="stockTransfer">
+                <hot-column data="Code" [readOnly]="true" title="Code"></hot-column>
+                <hot-column data="Part No." title="Part No"></hot-column>
+                <hot-column data="Material Name" title="Material Name"></hot-column>
+                <hot-column data="Unit" title="Unit"></hot-column>
+                <hot-column data="Quantity" title="Quantity"></hot-column>
+                <hot-column data="Cost Price" title="Cost Price"></hot-column>
+                <hot-column data="Sales Amount" title="Sales Amount"></hot-column>
+            </hot-table>
+        </div>
+    </p-panel>
+</div>
+<p-dialog header="Customers" [(visible)]="showCustomerList" [modal]="true" [style]="{width: '50%'}" [maximizable]="true"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-toolbar>
+        <div class="ui-toolbar-group-left">
+            <button pButton type="button" label="Show" icon="fa fa-search" class="ui-button-success"></button>
+            <button pButton type="button" label="Ok" icon="fa fa-check" class="ui-button-info"></button>
+            <button pButton type="button" label="Add" icon="fa fa-plus" class="ui-button-info"></button>
+        </div>
+    </p-toolbar>
+    <div class="card">
+        <p-table #dt [value]="customerList" [columns]="cols" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Global Filter"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of cols" [pSortableColumn]="col.field">{{col.header|translate}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr [style]="{'cursor':'pointer'}" (click)="selectCustomer(item.customerMasterCustomerName)">
+                    <td>{{item.customerMasterCustomerTitle}}</td>
+                    <td>{{item.customerMasterCustomerName}}</td>
+                    <td>{{item.customerMasterCustomerEmail}}</td>
+                    <td>{{item.customerMasterCustomerTel1}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-dialog>

@@ -1,0 +1,15 @@
+.customListHover{
+    width:'100%';
+    cursor:pointer;
+    padding: 5px 3px 5px 3px;
+    font-size: 11pt;
+    transition: 0.25s;
+  }
+  .customListHover:hover{
+    background-color: rgba(121, 217, 241, 0.3);
+    color: #000;
+  }
+  .selected{
+    background-color: rgba(121, 217, 241, 0.637);
+    color: #fff;
+  }

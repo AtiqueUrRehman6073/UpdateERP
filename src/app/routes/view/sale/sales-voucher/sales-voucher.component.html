@@ -1,0 +1,70 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="New" icon="pi pi-plus"></button>
+        <button pButton type="button" label="Edit" [disabled]='!btnFlag.edit' icon="fa fa-pencil"
+            class="ui-button-success"></button>
+        <button pButton type="button" class="ui-button-danger" [disabled]='!btnFlag.cancel' label="Cancel"
+            icon="fa fa-ban"></button>
+        <button pButton type="button" class="ui-button-danger" [disabled]='!btnFlag.delete' label="Delete"
+            icon="fa fa-trash"></button>
+        <button pButton type="button" [label]="btnFlag.save == true ? 'Save': 'Update'" icon="fa fa-floppy-o"
+            class="ui-button-success"></button>
+        <button pButton type="button" label="List" icon="fa fa-list" class="ui-button-info"></button>
+        <button pButton type="button" label="Packing List" icon="fa fa-list" class="ui-button-info"></button>
+        <button pButton type="button" label="Sales Terms" icon="fa fa-info-circle" class="ui-button-info"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <div style="display: inline-block;" class="ui-inputgroup">
+            <input type="text" pInputText placeholder="Search">
+            <button pButton type="button" icon="pi pi-search"></button>
+        </div>
+        <button pButton type="button" label="Print" icon="fa fa-print" class="ui-button-success"></button>
+        <button pButton type="button" label="Exit" icon="fa fa-sign-out"></button>
+        <p-checkbox label="Suppress Allocation in Print"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="card">
+    <div class="p-grid">
+        <label class="p-col-1">Voucher No.</label>
+        <div class="p-col-2">
+            <input pInputText id="voucherNo." />
+        </div>
+        <label class="p-col-1">Invoice Type</label>
+        <div class="p-col-2">
+            <p-dropdown [options]="invoiceTlist" optionLabel="">
+            </p-dropdown>
+        </div>
+        <label class="p-col-1">Voucher Date</label>
+        <div class="p-col-2">
+            <p-calendar useUtc id="voucherDate">
+            </p-calendar>
+        </div>
+        <label class="p-col-1">Currency</label>
+        <div class="p-col-2">
+            <p-dropdown [options]="currencyList" optionLabel="">
+            </p-dropdown>
+        </div>
+    </div>
+    <div class="p-grid">
+        <label class="p-col-1">Customer Id</label>
+        <div class="p-col-2">
+            <input pInputText id="customerID" />
+        </div>
+        <div class="p-col-3"></div>
+        <label class="p-col-1">PO Date</label>
+        <div class="p-col-2">
+            <p-calendar useUtc id="poDate">
+            </p-calendar>
+        </div>
+        <label class="p-col-1">Currency</label>
+        <div class="p-col-2">
+            <p-dropdown [options]="currencyList" optionLabel="">
+            </p-dropdown>
+        </div>
+    </div>
+</div>

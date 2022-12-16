@@ -1,0 +1,60 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="Export" icon="pi pi-print"></button>
+        <button pButton type="button" label="Save" icon="fa fa-floppy-o" class="ui-button-success"></button>
+
+        <button pButton type="button" label="Find" icon="fa fa-search"></button>
+        <button pButton type="button" label="List" icon="fa fa-list" class="ui-button-info"></button>
+    </div>
+
+    <div class="ui-toolbar-group-right">
+        <div style="display: inline-block;" class="ui-inputgroup">
+            <input type="text" pInputText placeholder="Search">
+            <button pButton type="button" icon="pi pi-search"></button>
+        </div>
+
+        <button pButton type="button" label="Print" icon="fa fa-print" class="ui-button-success"></button>
+
+        <button pButton type="button" label="Exit" icon="fa fa-sign-out"></button>
+
+        <p-checkbox label="Suppress Allocation in Print"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="card card-w-title">
+    <p-tabView [activeIndex]="index" (onChange)="handleChange($event)">
+        <p-tabPanel [header]="'Master'| translate">
+            <div class="p-grid">
+                <label class="p-col-12">
+                    <h2>Recorder Level Item Details</h2>
+                </label>
+                <p-table [value]="itemList">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>{{'Code' | translate}}</th>
+                            <th>{{'Group'| translate}}</th>
+                            <th>{{'PartNo'| translate}}</th>
+                            <th>{{'Item' | translate}}</th>
+                            <th>{{'Reorder'| translate}}</th>
+                            <th>{{'Stock' | translate}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-currency>
+                        <tr>
+                            <td>A</td>
+                            <td>B</td>
+                            <td>C</td>
+                            <td>D</td>
+                            <td>E</td>
+                            <td>F</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>

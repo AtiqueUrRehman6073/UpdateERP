@@ -1,0 +1,184 @@
+<!-- <div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" class="ui-button-info" label="Find" icon="fa fa-search"></button>
+        <button pButton type="button" class="ui-button-success" label="Print" icon="fa fa-print"></button>
+        <button pButton type="button" class="ui-button-danger" label="Cancel" icon="fa fa-times"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <div style="display: inline-block;" class="ui-inputgroup">
+
+            <input type="text" pInputText placeholder="Search">
+            <button pButton type="button" icon="pi pi-search"></button>
+        </div>
+
+        <button pButton type="button" label="Print" icon="fa fa-print" class="ui-button-success"></button>
+
+        <button pButton type="button" label="Exit" icon="fa fa-sign-out"></button>
+
+        <p-checkbox label="Suppress Allocation in Print"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="card card-w-title" [formGroup]='receiptVoucherFormGroup'>
+    <p-panel>
+        <p-header>
+            {{'Report 1'| translate}}
+        </p-header>
+        <div class="p-grid">
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Tree'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <input id="tree" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                <button pButton type="button" icon="pi pi-search"></button>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Date From'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <p-calendar id="dateFrom"></p-calendar>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Date To'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <p-calendar id="dateTo"></p-calendar>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Sales Man'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <input id="salesMan" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                <button pButton type="button" icon="pi pi-search"></button>
+            </div>
+        </div>
+        <div class="p-grid">
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Item'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <input id="item" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                <button pButton type="button" icon="pi pi-search"></button>
+            </div>
+            <div class="p-col-4 p-md-4 p-lg-1">
+                <input id="itemTree" type="checkbox" name="detailType" formControlName='ReceiptVoucherMasterDrAmount'
+                pInputCheck>
+                <label><b>Item Tree</b></label>
+            </div>
+            <div class="p-col-4 p-md-4 p-lg-1">
+                <input id="details" type="radio" name="detailType" formControlName='ReceiptVoucherMasterDrAmount'
+                    pInputRadio>
+                <label><b>Details</b></label>
+            </div>
+            <div class="p-col-4 p-md-4 p-lg-1">
+                <input id="summary" type="radio" name="detailType" formControlName='ReceiptVoucherMasterDrAmount'
+                    pInputRadio>
+                <label><b>Summary</b></label>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Location'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <input id="location" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                <button pButton type="button" icon="pi pi-search"></button>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Job'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <input id="job" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                <button pButton type="button" icon="pi pi-search"></button>
+            </div>
+        </div>
+        <div class="grid">
+            <hot-table [hotId]="hotid" [licenseKey]="licensekey" [settings]="receiptvoucherentry"></hot-table>
+        </div>
+    </p-panel>
+</div>
+<div class="card card-w-title" [formGroup]='receiptVoucherFormGroup'>
+    <p-tabView [activeIndex]="index" (onChange)="handleChange($event)">
+        <p-tabPanel [header]="'Format 1'| translate">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12 p-lg-3 mt-1" for="account">
+                    <b>{{'Stock In'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1" for="account">
+                    <b>{{'Open Qty'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openQty" type="number" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                </div>
+                
+                <div class="p-col-12 p-md-12 p-lg-3 mt-1">
+                    <b>{{'Stock Out'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1">
+                    <b>{{'Close Qty'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1" for="account"></div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1"></div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1" for="account">
+                    <b>{{'Open Amount'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1" for="account"></div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1"></div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1">
+                    <b>{{'Close Amount'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                </div>
+            </div>
+            <div class="grid">
+                <hot-table [hotId]="hotid" [licenseKey]="licensekey" [settings]="receiptvoucherentry"></hot-table>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel [header]="'Format 2'| translate">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1" for="account">
+                    <b>{{'Open Qty'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-4 mt-1">
+                    <input id="openQty" type="number" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-4 mt-1">
+                    <b>STOCK MOVEMENT</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1">
+                    <b>{{'Close Qty'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1" for="account">
+                    <b>{{'Open Amount'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-3 mt-1" for="account"></div>
+                <div class="p-col-12 p-md-12 p-lg-3 mt-1"></div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1">
+                    <b>{{'Close Amount'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='ReceiptVoucherMasterDrAmount' pInputText>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div> -->

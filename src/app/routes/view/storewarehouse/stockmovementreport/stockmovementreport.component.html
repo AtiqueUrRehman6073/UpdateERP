@@ -1,0 +1,316 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="New" [disabled]='btnFlag.new' icon="pi pi-plus"
+            (click)="newStockMovementReport()"></button>
+        <button pButton type="button" label="Edit" [disabled]='btnFlag.edit' icon="fa fa-pencil"
+            class="ui-button-success"></button>
+        <button pButton type="button" class="ui-button-danger" [disabled]='btnFlag.cancel' label="Cancel"
+            icon="fa fa-ban"></button>
+        <button pButton type="button" [label]="btnFlag.save == true ? 'Save': 'Update'" icon="fa fa-floppy-o"
+            class="ui-button-success" [disabled]="btnFlag.save"></button>
+        <button pButton type="button" label="List" icon="fa fa-list" class="ui-button-info"></button>
+        <button pButton type="button" class="ui-button-danger" [disabled]='btnFlag.delete' label="Delete"
+            icon="fa fa-trash"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <div style="display: inline-block;" class="ui-inputgroup">
+            <input type="text" pInputText placeholder="Search">
+            <button pButton type="button" icon="pi pi-search"></button>
+        </div>
+        <button pButton type="button" label="Print" icon="fa fa-print" [disabled]='btnFlag.print'
+            class="ui-button-success"></button>
+        <button pButton type="button" label="Exit" icon="fa fa-sign-out"></button>
+        <p-checkbox label="Suppress Allocation in Print"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="card card-w-title" [formGroup]='stockMovementRptFormGroupGeneral'>
+    <p-panel>
+        <p-header>
+            {{'Report'| translate}}
+        </p-header>
+        <div class="p-grid">
+            <div class="p-sm-1 p-md-1 p-lg-1 " for="account">
+                <b>{{'Item Group'| translate}}</b>
+            </div>
+            <div class="p-sm-4 p-md-2 p-lg-2">
+                <div style="display: inline-block;" class="ui-inputgroup">
+                    <input id="itemGroup" formControlName='stockMovementRptItemGroup' pInputText>
+                    <button pButton type="button" icon="pi pi-search"></button>
+                </div>
+                <div class="error" *ngIf="f1.stockMovementRptItemGroup.touched && f1.stockMovementRptItemGroup.invalid">
+                    <span>Item Group is Mandatory Field*</span>
+                </div>
+            </div>
+            <div class="p-sm-2 p-md-1 p-lg-1">
+                <input id="itemTree" type="checkbox" name="stockMovementRptDetailType"
+                    formControlName='stockMovementRptDetailType' pInputCheck>
+                <label><b>Item Tree</b></label>
+            </div>
+            <div class="p-sm-2 p-md-1 p-lg-1">
+                <p-radioButton name="stockMovementRptDetails" inputId="details"
+                    formControlName="stockMovementRptDetails" value="Details">
+                </p-radioButton>
+                <label class="p-col-1 p-md-12 p-lg-1 p-1" for="stockMovementRptDetails">Details</label>
+            </div>
+            <div class="p-sm-2 p-md-1 p-lg-1">
+                <p-radioButton name="stockMovementRptDetails" inputId="summary"
+                    formControlName="stockMovementRptDetails" value="Summary">
+                </p-radioButton>
+                <label class="p-col-1 p-md-12 p-lg-1 p-1" for="stockMovementRptDetails">Summary</label>
+            </div>
+            <div class="p-sm-1 p-md-1 p-lg-1 " for="account">
+                <b>{{'Sales Man'| translate}}</b>
+            </div>
+            <div class="p-sm-4 p-md-2 p-lg-2">
+                <div style="display: inline-block;" class="ui-inputgroup">
+                    <input id="salesMan" formControlName='stockMovementRptSalesMan' pInputText>
+                    <button pButton type="button" icon="pi pi-search"></button>
+                </div>
+                <div class="error" *ngIf="f1.stockMovementRptSalesMan.touched && f1.stockMovementRptSalesMan.invalid">
+                    <span>Sales Man is Mandatory Field*</span>
+                </div>
+            </div>
+            <div class="p-sm-1 p-md-1 p-lg-1 " for="account">
+                <b>{{'Job'| translate}}</b>
+            </div>
+            <div class="p-sm-4 p-md-2 p-lg-2">
+                <div style="display: inline-block;" class="ui-inputgroup">
+                    <input id="job" formControlName='stockMovementRptJob' pInputText>
+                    <button pButton type="button" icon="pi pi-search"></button>
+                </div>
+                <div class="error" *ngIf="f1.stockMovementRptJob.touched && f1.stockMovementRptJob.invalid">
+                    <span>Job is Mandatory Field*</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-grid">
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Item'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <div style="display: inline-block;" class="ui-inputgroup">
+                    <input id="itemName" formControlName='stockMovementRptItemName' pInputText>
+                    <button pButton type="button" icon="pi pi-search" (click)="GetItemList()"></button>
+                </div>
+                <div class="error" *ngIf="f1.stockMovementRptItemName.touched && f1.stockMovementRptItemName.invalid">
+                    <span>Item is Mandatory Field*</span>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Date From'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <div style="display: inline-block;" class="ui-inputgroup">
+                    <p-calendar id="dateFrom" useUtc dateFormat="dd-mm-yy" [(ngModel)]="datedFrom" formControlName="stockMovementRptDateFrom">
+                    </p-calendar>
+                </div>
+                <div class="error" *ngIf="f1.stockMovementRptDateFrom.touched && f1.stockMovementRptDateFrom.invalid">
+                    <span>Date Range From is Mandatory Field*</span>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Date To'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <div style="display: inline-block;" class="ui-inputgroup">
+                    <p-calendar id="dateTo" useUtc dateFormat="dd-mm-yy" [(ngModel)]="datedTo" formControlName="stockMovementRptDateTo">
+                    </p-calendar>
+                </div>
+                <div class="error" *ngIf="f1.stockMovementRptDateTo.touched && f1.stockMovementRptDateTo.invalid">
+                    <span>Date Range End is Mandatory Field*</span>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+                <b>{{'Location'| translate}}</b>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <div style="display: inline-block;" class="ui-inputgroup">
+                    <input id="location" formControlName='stockMovementRptLocation' pInputText>
+                    <button pButton type="button" icon="pi pi-search"></button>
+                </div>
+                <div class="error" *ngIf="f1.stockMovementRptLocation.touched && f1.stockMovementRptLocation.invalid">
+                    <span>Location is Mandatory Field*</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-grid" *ngIf="submitButtons">
+            <div class="p-sm-12 p-md-12 p-lg-12"
+                style="display: flex;justify-content: right;padding:15px 115px 15px 15px">
+                <button pButton class="ui-button-info" label='Submit' (click)="submitStockMovementReport()"></button>
+                <button pButton class="ui-button-warning" label='Clear' (click)="clearFormGeneral()"></button>
+            </div>
+        </div>
+        <div class="grid" style="margin: 20px 0px 0px 0px;">
+            <hot-table [hotId]="hotid" [data]="ItemFromStockLedger" [licenseKey]="licensekey"
+                [settings]="stockmovementrpt">
+                <hot-column data="item_Id" [readOnly]="true" title="Item Id"></hot-column>
+                <hot-column data="item_Name" title="Item Name"></hot-column>
+                <hot-column data="stock_Register_Unit_ID" title="Unit"></hot-column>
+                <hot-column data="openQty" title="Open Qty"></hot-column>
+                <hot-column data="openQtyAmount" title="Open Amount"></hot-column>
+                <hot-column data="stockIn" title="Stock In Qty"></hot-column>
+                <hot-column data="stockInAmount" title="Stock In Amt."></hot-column>
+                <hot-column data="stockOut" title="Stock Out Qty"></hot-column>
+                <hot-column data="stockOutAmount" title="Stock Out Amt."></hot-column>
+                <hot-column data="totalBal" title="Total Balance"></hot-column>
+                <hot-column data="totalBalAmount" title="Total Bal. Amt."></hot-column>
+            </hot-table>
+        </div>
+    </p-panel>
+</div>
+<div class="card card-w-title" [formGroup]='stockMovementRptFormGroup'>
+    <p-tabView [activeIndex]="index" (onChange)="handleChange($event)">
+        <p-tabPanel [header]="'Format 1'| translate">
+            <div class="p-grid">
+                <div class="p-col-6">
+                    <p-panel>
+                        <div class="p-grid">
+                            <div class="p-col-2 p-md-2 p-lg-1" for="account">
+                                <b>{{'Stock In'| translate}}</b>
+                            </div>
+                            <div class="p-col-2 p-md-2 p-lg-2" for="account">
+                                <b>{{'Open Qty'| translate}}</b>
+                            </div>
+                            <div class="p-col-3 p-md-3 p-lg-4">
+                                <input id="openQty" type="number" formControlName='stockMovementRptOpenQty' pInputText>
+                            </div>
+                            <div class="p-col-2 p-md-2 p-lg-2" for="account">
+                                <b>{{'Open Amount'| translate}}</b>
+                            </div>
+                            <div class="p-col-3 p-md-3 p-lg-2">
+                                <input id="openAmount" type="number" formControlName='stockMovementRptOpenAmount'
+                                    pInputText>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <hot-table [hotId]="hotid" [data]="vchDetailsResponse" [licenseKey]="licensekey"
+                                [settings]="stockmovementrptDtls">
+                                <hot-column data="stock_Register_Trans_Type" title="Vch. Type"></hot-column>
+                                <hot-column data="stock_Register_Ref_Voucher_No" title="Vch. No."></hot-column>
+                                <hot-column data="stock_Register_Voucher_Date" title="Vch. Date"></hot-column>
+                                <hot-column data="stock_Register_Unit_ID" title="Unit"></hot-column>
+                                <hot-column data="stock_Register_Rate" title="Rate"></hot-column>
+                                <hot-column data="stockIn" title="Qty"></hot-column>
+                                <hot-column data="stockInAmt" title=" Amount"></hot-column>
+                                <hot-column data="stock_Register_Material_ID" [readOnly]="true" title="Itm Group">
+                                </hot-column>
+                                <hot-column data="job" title="Job"></hot-column>
+                                <hot-column data="stockLocation" title="Location"></hot-column>
+                            </hot-table>
+                        </div>
+                    </p-panel>
+                </div>
+                <div class="p-col-6">
+                    <p-panel>
+                        <div class="p-grid">
+                            <div class="p-col-2 p-md-2 p-lg-2 mt-1">
+                                <b>{{'Stock Out'| translate}}</b>
+                            </div>
+                            <div class="p-col-2 p-md-2 p-lg-2 mt-1" for="account">
+                                <b>{{'Close Qty'| translate}}</b>
+                            </div>
+                            <div class="p-col-3 p-md-3 p-lg-3 mt-1">
+                                <input id="openAmount" type="number" formControlName='stockMovementRptCloseQty'
+                                    pInputText>
+                            </div>
+                            <div class="p-col-2 p-md-2 p-lg-2 mt-1">
+                                <b>{{'Close Amount'| translate}}</b>
+                            </div>
+                            <div class="p-col-3 p-md-3 p-lg-2 mt-1">
+                                <input id="openAmount" type="number" formControlName='stockMovementRptCloseAmount'
+                                    pInputText>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <hot-table [hotId]="hotid" [data]="vchDetailsResponse" [licenseKey]="licensekey"
+                                [settings]="stockmovementrptDtls">
+                                <hot-column data="stock_Register_Trans_Type" title="Vch. Type"></hot-column>
+                                <hot-column data="stock_Register_Ref_Voucher_No" title="Vch. No."></hot-column>
+                                <hot-column data="stock_Register_Voucher_Date" title="Vch. Date"></hot-column>
+                                <hot-column data="stock_Register_Unit_ID" title="Unit"></hot-column>
+                                <hot-column data="stock_Register_Rate" title="Rate"></hot-column>
+                                <hot-column data="stockOut" title="Qty"></hot-column>
+                                <hot-column data="stockOutAmt" title=" Amount"></hot-column>
+                                <hot-column data="stock_Register_Material_ID" [readOnly]="true" title="Itm Group">
+                                </hot-column>
+                                <hot-column data="job" title="Job"></hot-column>
+                                <hot-column data="stockLocation" title="Location"></hot-column>
+                            </hot-table>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel [header]="'Format 2'| translate">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1" for="account">
+                    <b>{{'Open Qty'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-4 mt-1">
+                    <input id="openQty" type="number" formControlName='stockMovementRptCloseAmount' pInputText>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-4 mt-1">
+                    <b>STOCK MOVEMENT</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1">
+                    <b>{{'Close Qty'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='stockMovementRptCloseAmount' pInputText>
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1" for="account">
+                    <b>{{'Open Amount'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='stockMovementRptCloseAmount' pInputText>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-3 mt-1" for="account"></div>
+                <div class="p-col-12 p-md-12 p-lg-3 mt-1"></div>
+                <div class="p-col-12 p-md-12 p-lg-1 mt-1">
+                    <b>{{'Close Amount'| translate}}</b>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2 mt-1">
+                    <input id="openAmount" type="number" formControlName='stockMovementRptCloseAmount' pInputText>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+<p-dialog header="Item List" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '90%'}"
+    [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table #dt [value]="dataset" [columns]="cols" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+            <div style="text-align: right">
+                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of cols" [pSortableColumn]="col.field">{{col.header|translate}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{item.Item_Master_Item_ID}}</td>
+                <td><a href="javascript:void(0)"
+                        (click)="GetItemDetails(item.Item_Master_Item_ID)">{{item.Item_Master_Item_Name}}</a></td>
+                <td>{{item.Item_Master_Part_No}}</td>
+                <td>{{item.Item_Master_Barcode}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
+<p-toast></p-toast>
+<p-confirmDialog key="confirm-key" acceptLabel="Yes" rejectLabel="No" header="Confirm"
+    [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog>

@@ -1,0 +1,124 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="New" icon="pi pi-plus"></button>
+        <button pButton type="button" label="Edit" [disabled]='!btnFlag.edit' icon="fa fa-pencil"
+            class="ui-button-success"></button>
+        <button pButton type="button" class="ui-button-danger" [disabled]='!btnFlag.cancel' label="Cancel"
+            icon="fa fa-ban"></button>
+        <button pButton type="button" [label]="btnFlag.save == true ? 'Save': 'Update'" icon="fa fa-floppy-o"
+            class="ui-button-success"></button>
+        <button pButton type="button" label="List" icon="fa fa-list" class="ui-button-info"></button>
+        <button pButton type="button" class="ui-button-danger" [disabled]='!btnFlag.delete' label="Delete"
+            icon="fa fa-trash"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <div style="display: inline-block;" class="ui-inputgroup">
+            <input type="text" pInputText placeholder="Search">
+            <button pButton type="button" icon="pi pi-search"></button>
+        </div>
+        <button pButton type="button" label="Print" icon="fa fa-print" class="ui-button-success"></button>
+        <button pButton type="button" label="Exit" icon="fa fa-sign-out"></button>
+        <p-checkbox label="Suppress Allocation in Print"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="card card-w-title" [formGroup]='damageEntryFormGroup'>
+    <p-tabView [activeIndex]="index" (onChange)="handleChange($event)">
+        <p-tabPanel [header]="'Format 1'| translate">
+            <div class="p-grid">
+                <div class="p-col-12">
+                    <p-panel [header]="'Damage Entry'| translate">
+                        <div class="p-grid">
+                            <div class="p-col-2 p-md-2 p-lg-2" for="account">
+                                <b>{{'Voucher No.'| translate}}</b>
+                            </div>
+                            <div class="p-col-4 p-md-2 p-lg-4">
+                                <input [style]="{'width':'100%'}" id="openQty" type="number" formControlName='voucherNo'
+                                    pInputText>
+                                <div class="error" *ngIf="f.voucherNo.touched && f.voucherNo.invalid">
+                                    <span>Voucher No is Mandatory Field*</span>
+                                </div>
+                            </div>
+                            <div class="p-col-2 p-md-2 p-lg-2" for="account">
+                                <b>{{'Voucher Date'| translate}}</b>
+                            </div>
+                            <div class="p-col-4 p-md-2 p-lg-4">
+                                <p-calendar [style]="{'width':'100%'}" id="dateFrom" formControlName="voucherDate">
+                                </p-calendar>
+                                <div class="error" *ngIf="f.voucherDate.touched && f.voucherDate.invalid">
+                                    <span>Voucher Date is Mandatory Field*</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-grid">
+                            <div class="p-col-2 p-md-2 p-lg-2" for="account">
+                                <b>{{'Location'| translate}}</b>
+                            </div>
+                            <div class="p-col-2 p-md-2 p-lg-4" for="account">
+                                <p-dropdown [options]="locationList" placeholder="--- select location ---" optionLabel="locationMasterLocationName"
+                                    formControlName="location" [showClear]="true">
+                                </p-dropdown>
+                                <div class="error" *ngIf="f.location.touched && f.location.invalid">
+                                    <span>Location is Mandatory Field*</span>
+                                </div>
+                            </div>
+                            <div class="p-col-2 p-md-2 p-lg-2" for="account">
+                                <b>{{'Remarks'| translate}}</b>
+                            </div>
+                            <div class="p-col-4 p-md-4 p-lg-4" for="account">
+                                <textarea style="min-height:80px;width:100%;margin-top:5px;" formControlName="remarks"
+                                    pInputTextarea></textarea>
+                                <div class="error" *ngIf="f.remarks.touched && f.remarks.invalid">
+                                    <span>Remarks is Mandatory Field*</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <hot-table [hotId]="hotid" [licenseKey]="licensekey" [settings]="stockmovementrpt">
+                            </hot-table>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel [header]="'Format 2'| translate">
+            <div class="p-grid">
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+<p-dialog header="Item List" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '90%'}"
+    [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table #dt [value]="dataset" [columns]="cols" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+            <div style="text-align: right">
+                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of cols" [pSortableColumn]="col.field">{{col.header|translate}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{item.Item_Master_Item_ID}}</td>
+                <td><a href="javascript:void(0)"
+                        (click)="GetItemDetails(item.Item_Master_Item_ID)">{{item.Item_Master_Item_Name}}</a></td>
+                <td>{{item.Item_Master_Part_No}}</td>
+                <td>{{item.Item_Master_Barcode}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
+<p-toast></p-toast>
+<p-confirmDialog key="confirm-key" acceptLabel="Yes" rejectLabel="No" header="Confirm"
+    [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog>

@@ -1,0 +1,108 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="New" (click)='new()' icon="pi pi-plus"></button>
+        <button pButton type="button" label="Edit" (click)='edit()' [disabled]='!btnFlag.edit' icon="fa fa-pencil"
+            class="ui-button-success"></button>
+
+        <button pButton type="button" class="ui-button-danger" [disabled]='!btnFlag.cancel' label="Cancel"
+            (click)="cancel()" icon="fa fa-ban"></button>
+        <button pButton type="button" [label]="btnFlag.save == true ? 'Save': 'Update'" (click)='saveReceiptVoucher()'
+            icon="fa fa-floppy-o" class="ui-button-success"></button>
+
+        <!-- <button pButton type="button" label="Find" icon="fa fa-search"></button> -->
+        <button pButton type="button" label="List" icon="fa fa-list" (click)="showMaximizableDialog()"
+            class="ui-button-info"></button>
+
+        <button pButton type="button" class="ui-button-danger" (click)='delete()' [disabled]='!btnFlag.delete'
+            label="Delete" icon="fa fa-trash"></button>
+    </div>
+
+    <div class="ui-toolbar-group-right">
+        <div style="display: inline-block;" class="ui-inputgroup">
+
+            <input type="text" pInputText [(ngModel)]='search' placeholder="Search">
+            <button pButton type="button" [disabled]='search != null && search.trim() != ""? false: true'
+                (click)=GetSavedReceiptDetails(search) icon="pi pi-search"></button>
+        </div>
+
+        <button pButton type="button" label="Print" icon="fa fa-print" class="ui-button-success"></button>
+
+        <button pButton type="button" label="Exit" icon="fa fa-sign-out"></button>
+
+        <p-checkbox label="Suppress Allocation in Print"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="card card-w-title">
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12 p-lg-1">
+            <input pInputCheck type="checkbox">
+            {{'Check All' | translate}}
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+            <b>{{'Select a Job'| translate}}</b>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <p-dropdown [options]="locations" placeholder="Select a Location" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-1 " for="account">
+            <b>{{'Select a Location'| translate}}</b>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <p-dropdown [options]="locations" placeholder="Select a Location" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div>
+    </div>
+</div>  
+<div class="card card-w-title">
+    <div class="grid">
+        <hot-table [hotId]="hotid" [licenseKey]="licensekey" [settings]="receiptvoucherentry"></hot-table>
+    </div>
+</div>
+<!-- <p-dialog header="Receipt Voucher List" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '90%'}"
+    [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table #dt [value]="receiptVoucherarry" [columns]="cols"  [paginator]="true"  [rows]="10">
+        <ng-template pTemplate="caption">
+            <div style="text-align: right">        
+                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter" 
+                (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr >
+                    <th *ngFor="let col of cols" [pSortableColumn]="col.field" >{{col.header|translate}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>   
+                    </th>
+              </tr>
+    </ng-template>
+    
+        <ng-template pTemplate="body" let-pymtVchr>
+            <tr>
+                <td>{{pymtVchr.ReceiptVoucherMasterVoucherNo}}</td>
+                <td>{{pymtVchr.ReceiptVoucherMasterVoucherDate}}</td>
+                <td>{{pymtVchr.ReceiptVoucherMasterDrAcNo}}</td>
+                <td>{{getCurrency(pymtVchr.ReceiptVoucherMasterCurrencyId)}}</td>
+                <td>{{pymtVchr.ReceiptVoucherMasterDbAmount}}</td>
+                <td>{{pymtVchr.ReceiptVoucherMasterCrAmount}}</td>
+                <td>{{pymtVchr.ReceiptVoucherMasterNarration}}</td>
+                <td>{{pymtVchr.ReceiptVoucherMasterDbAmount}}</td>
+                <td>{{pymtVchr.ReceiptVoucherMasterCrAmount}}</td>
+                <td> 
+                    <button pButton type="button" icon="pi pi-pencil"
+                        (click)='GetSavedReceiptDetails(pymtVchr.ReceiptVoucherMasterVoucherNo);displayMaximizable=false;'
+                        class="ui-button-info"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</p-dialog> -->
+
+<!-- <p-toast></p-toast>
+
+<p-confirmDialog key="confirm-key" acceptLabel="Yes" rejectLabel="No" header="Confirm"
+    [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog> -->

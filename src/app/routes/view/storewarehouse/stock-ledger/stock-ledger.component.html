@@ -1,0 +1,147 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" class="ui-button-info" [disabled]="btnFlag.find" label="Find" icon="fa fa-search"></button>
+        <button pButton type="button" class="ui-button-danger" [disabled]="btnFlag.cancel" label="Cancel" icon="fa fa-times"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <div style="display: inline-block;" class="ui-inputgroup">
+
+            <input type="text" pInputText placeholder="Search">
+            <button pButton type="button" icon="pi pi-search"></button>
+        </div>
+
+        <button pButton type="button" label="Print" icon="fa fa-print" [disabled]="btnFlag.print" class="ui-button-success"></button>
+
+        <button pButton type="button" label="Exit" icon="fa fa-sign-out"></button>
+
+        <p-checkbox label="Suppress Allocation in Print"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="card card-w-title" [formGroup]='stockLedgerFormGroup'>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12 p-lg-10">
+            <input pInputCheck type="checkbox" formControlName='dateCheck'>
+            {{'Date' | translate}}
+        </div>
+
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <input pInputCheck type="checkbox" formControlName='zeroOpenBalanceCheck'>
+            {{'Exclude Zero Opening Balance' | translate}}
+        </div>
+
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12 p-lg-1">
+            From
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <p-calendar useUtc dateFormat="dd-mm-yy" [(ngModel)]="datedFrom" formControlName='dateFrom'></p-calendar>
+            <div class="error" *ngIf="f.dateFrom.touched && f.dateFrom.invalid">
+                <span>Date-From is Mandatory Field*</span>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-1">
+            To
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <p-calendar useUtc dateFormat="dd-mm-yy" [(ngModel)]="datedTo" formControlName='dateTo'></p-calendar>
+            <div class="error" *ngIf="f.dateTo.touched && f.dateTo.invalid">
+                <span>Date-To is Mandatory Field*</span>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-1">
+            Material Name
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <input id="salesMan" formControlName='materialName' pInputText>
+            <button pButton type="button" icon="pi pi-search"></button>
+            <div class="error" *ngIf="f.materialName.touched && f.materialName.invalid">
+                <span>Material Name is Mandatory Field*</span>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-2 p-lg-offset-1">
+            <input pInputCheck type="checkbox" formControlName='printReceivedQtyCheck'>
+            {{'Print Received Qty Report' | translate}}
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12 p-lg-1">{{'Part No'| translate}}</div>
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <p-dropdown [options]="partNo" placeholder="Select a Part No." optionLabel="name" formControlName="partNo"
+                [showClear]="true">
+            </p-dropdown>
+            <div class="error" *ngIf="f.partNo.touched && f.partNo.invalid">
+                <span>Part No. is Mandatory Field*</span>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-1">{{'Location'| translate}}</div>
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <p-dropdown [options]="locations" placeholder="Select a Location" optionLabel="name" formControlName="location" [showClear]="true">
+            </p-dropdown>
+            <div class="error" *ngIf="f.location.touched && f.location.invalid">
+                    <span>Part No. is Mandatory Field*</span>
+                </div>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-1">{{'Group'| translate}}</div>
+        <div class="p-col-12 p-md-12 p-lg-2">
+            <p-dropdown [options]="group" placeholder="Select a Group" optionLabel="name" formControlName="itemGroup" [showClear]="true">
+            </p-dropdown>
+            <div class="error" *ngIf="f.itemGroup.touched && f.itemGroup.invalid">
+                    <span>Item Group is Mandatory Field*</span>
+                </div>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-2 p-lg-offset-1">
+            <input pInputCheck type="checkbox" formControlName='zeroBalanceCheck'>
+            {{'Exclude Zero Balance' | translate}}
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12 p-lg-2 p-lg-offset-10">
+            <input pInputCheck type="checkbox" formControlName='orderByGroupCheck'>
+            {{'Order By Group' | translate}}
+        </div>
+    </div>
+</div>
+<div class="card card-w-title">
+    <div class="p-grid">
+        <div class="p-col-12">
+            <p-table [value]="currencyList">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>{{'Item ID' | translate}}</th>
+                        <th>{{'PartNo'| translate}}</th>
+                        <th>{{'Item Name'| translate}}</th>
+                        <th>{{'Open Aty' | translate}}</th>
+                        <th>{{'Open Value'| translate}}</th>
+                        <th>{{'Received Qty' | translate}}</th>
+                        <th>{{'Received Value' | translate}}</th>
+                        <th>{{'Issue Qty' | translate}}</th>
+                        <th>{{'Issue Value' | translate}}</th>
+                        <th>{{'Closing Qty' | translate}}</th>
+                        <th>{{'Closing Value' | translate}}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-currency>
+                    <tr>
+                        <td>A</td>
+                        <td>B</td>
+                        <td>C</td>
+                        <td>D</td>
+                        <td>E</td>
+                        <td>F</td>
+                        <td>G</td>
+                        <td>H</td>
+                        <td>I</td>
+                        <td>J</td>
+                        <td>K</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

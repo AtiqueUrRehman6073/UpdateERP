@@ -1,0 +1,63 @@
+<div class='matero-page-header'>
+    <div class="matero-page-header-inner">
+        <h2 class="matero-page-title">{{title}}</h2>
+    </div>
+</div>
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="Edit" icon="fa fa-search" class="ui-button-info"></button>
+        <button pButton type="button" label="Print" icon="fa fa-print" class="p-button-secondary"></button>
+        <button pButton type="button" label="Print2" icon="fa fa-print" class="p-button-secondary"></button>
+        <button pButton class="ui-button-warning" label='Clear'></button>
+        <button pButton type="button" class="ui-button-danger" label="Delete" icon="fa fa-trash"></button>
+    </div> 
+    <div class="ui-toolbar-group-right">
+        <p-checkbox label="Show Items With Stock"></p-checkbox>
+    </div>
+</p-toolbar>
+<div class="card card-w-title" [formGroup]='ItemFormGroup'>
+    <div class="p-grid">
+        <div class="p-sm-12 p-md-12 p-lg-10">
+            <div class="p-grid inputGroup">
+                <label class="p-col-6 p-md-12 p-lg-1" for="itemName">{{'ASON '| translate}}</label>
+                <div class="p-col-6 p-md-12 p-lg-2 p-1">
+                    <p-calendar class="w-100" useUtc formControlName='DateFrom' id="dateFrom">
+                    </p-calendar>
+                    <div class="error" *ngIf="f.DateFrom.errors 
+                    && (f.DateFrom.dirty || f.DateFrom.touched)">
+                        <span *ngIf="f.DateFrom.errors.required">
+                            Item is Mandatory Field*</span>
+                    </div>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-1">{{'Item Group'| translate}}</div>
+                <div class="p-col-12 p-md-12 p-lg-2">
+                    <p-dropdown [options]="location" placeholder="ALL" optionLabel="name" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-1">{{'Item'| translate}}</div>
+                <div class="p-col-12 p-md-12 p-lg-2">
+                    <p-dropdown [options]="location" placeholder="ALL" optionLabel="name" [showClear]="true">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-w-title">
+
+</div>
+
+<div class="p-grid">
+    <div class="p-col-1"></div>
+    <div class="p-col-1"></div>
+    <div class="p-col-1"></div>
+    <div class="p-col-1"></div>
+    <div class="p-col-1"></div>
+    <div class="p-col-1"><input pInputText></div>
+    <div class="p-col-1"><input pInputText></div>
+    <div class="p-col-1"><input pInputText></div>
+    <div class="p-col-1"><input pInputText></div>
+    <div class="p-col-1"><input pInputText></div>
+    <div class="p-col-1"><input pInputText></div>
+    <div class="p-col-1"><input pInputText></div>
+</div>
