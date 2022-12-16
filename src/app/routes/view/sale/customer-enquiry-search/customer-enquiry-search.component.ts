@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { defaults } from 'src/app/shared/service/settings';
-import { ConfirmationService, MenuItem, MessageService } from 'primeng';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { StockApiService } from 'src/app/routes/service/stock-api/stock-api.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MasterApiService } from 'src/app/routes/service/master.api.services';
 
 @Component({
   selector: 'app-customer-enquiry-search',
@@ -12,30 +14,48 @@ import { StockApiService } from 'src/app/routes/service/stock-api/stock-api.serv
 })
 export class CustomerEnquirySearchComponent implements OnInit {
 
-  constructor(private activatedroute: ActivatedRoute,
+  constructor(
     private translate: TranslateService,
+    private router: Router,
+    private activatedroute: ActivatedRoute,
     private messageService: MessageService,
+    private confirmation: ConfirmationService,
+    private masterApi: MasterApiService,
     private stockApi: StockApiService
-    ) {
+  ) {
     this.licensekey = defaults.hotlicensekey;
-   }
+  }
 
-  title:string = '';
+  title: string = '';
   index: number = 0;
   report: any = [];
-  customerNameList:Array<string> = ['---Select Customer Name---'];
+  customerNameList: Array<string> = ['---Select Customer Name---'];
   hotid = 'stockLedgerReport';
   licensekey: string;
   customerEnquirySearch: any;
-  dataset:any = [];
+  dataset: any = [];
+  useDateRange: boolean;
+  customerEnquiryFormGroup: FormGroup;
+  btnFlag: {
+    list?: boolean,
+    save?: boolean,
+    cancel?: boolean
+  }
   ngOnInit(): void {
+    this.messageService.add({ severity: 'error', summary: 'Alert', detail: 'Please fill all the required feilds.!' });
+    this.useDateRange = true;
     this.activatedroute.data.subscribe(data => {
       this.title = data.title;
-      });
-      this.initializeControls();
-      //this.getcustomerEnquiryReport();
+    });
+    this.btnFlag = { cancel: true, save: true, list: false };
+    this.initializeControls();
+    this.customerEnquiryFormGroup = new FormGroup({
+      enquiryNo: new FormControl('', Validators.required),
+      dateFrom: new FormControl('', Validators.required),
+      dateTo: new FormControl('', Validators.required),
+      customerName: new FormControl('', Validators.required),
+    });
   }
-
   initializeControls() {
     this.customerEnquirySearch = {
       rowHeaders: true,
@@ -122,21 +142,48 @@ export class CustomerEnquirySearchComponent implements OnInit {
     // };
 
 
-    this.customerEnquirySearch.afterValidate = (isValid, value, row, prop) => {
-      if (!isValid) {
-        this.messageService.add({ severity: 'error', summary: 'Alert', detail: 'Invalid entry' });
-      }
-
-    };
+    // this.customerEnquirySearch.afterValidate = (isValid, value, row, prop) => {
+    //   if (!isValid) {
+    //     this.messageService.add({ severity: 'error', summary: 'Alert', detail: 'Invalid entry' });
+    //   }
+    //};
   }
-
-  getcustomerEnquiryReport(){
+  getcustomerEnquiryReport() {
     this.stockApi.customerEnquiryReport().subscribe(
-      data =>{
+      data => {
         console.log(data);
         this.report = data;
         this.dataset = this.report.Enquiry_Master;
       }
     );
   }
+  getFilteredcustomerEnquiryReport() {
+    if ((this.f.enquiryNo.invalid || this.f.customerName.invalid) || (this.useDateRange && (this.f.dateFrom.invalid || this.f.dateTo.invalid))) {
+      this.messageService.add({ severity: 'error', summary: 'Alert', detail: 'Please fill all the required feilds.!' });
+      console.log('callled');
+      return;
+    }
+    else
+      this.stockApi.customerEnquiryReport().subscribe(
+        data => {
+          console.log(data);
+          this.report = data;
+          this.dataset = this.report.Enquiry_Master;
+        }
+      );
+  }
+  toggleDateRange() {
+    if (this.useDateRange) {
+      this.customerEnquiryFormGroup.controls["dateFrom"].enable();
+      this.customerEnquiryFormGroup.controls["dateTo"].enable();
+    }
+    else {
+      this.customerEnquiryFormGroup.controls["dateTo"].disable();
+      this.customerEnquiryFormGroup.controls["dateFrom"].disable();
+    }
+  }
+  get f() {
+    return this.customerEnquiryFormGroup.controls;
+  }
+
 }

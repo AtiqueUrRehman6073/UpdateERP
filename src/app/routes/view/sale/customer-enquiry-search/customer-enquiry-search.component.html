@@ -5,12 +5,13 @@
 </div>
 <p-toolbar>
     <div class="ui-toolbar-group-left">
-        <button pButton type="button" class="ui-button-info" label="List" icon="fa fa-list" (click)="getcustomerEnquiryReport()"></button>
-        <button pButton type="button" class="ui-button-success" label="Save" icon="fa fa-floppy-o"></button>
-        <button pButton type="button" class="ui-button-danger" label="Cancel" icon="fa fa-times"></button>
+        <button pButton type="button" class="ui-button-info" label="List" icon="fa fa-list"
+        [disabled]="btnFlag.list" (click)="getcustomerEnquiryReport()"></button>
+        <button pButton type="button" class="ui-button-success" label="Save" [disabled]="btnFlag.save" icon="fa fa-floppy-o"></button>
+        <button pButton type="button" class="ui-button-danger" label="Cancel" [disabled]="btnFlag.cancel" icon="fa fa-times"></button>
     </div>
 </p-toolbar>
-<div class="card card-w-title">
+<div class="card card-w-title" [formGroup]="customerEnquiryFormGroup">
     <p-panel>
         <p-header>
             {{'Customer Enquiry'| translate}}
@@ -18,33 +19,45 @@
         <div class="p-grid">
             <div class="p-col-1 p-md-1 p-lg-1"><b>{{'Enquiry No'| translate}}</b></div>
             <div class="p-col-3 p-md-3 p-lg-3">
-                <input id="enquiryNo" type="number" pInputText>
+                <input id="enquiryNo" type="number" pInputText formControlName="enquiryNo">
+                <div class="error" *ngIf="f.enquiryNo.touched && f.enquiryNo.invalid">
+                    <span>Enquir No. is Mandatory Field*</span>
+                </div>
             </div>
             <div class="p-col-2 p-md-2 p-lg-2">
-                <p-checkbox label="Date Range"></p-checkbox>
+                <span (click)="toggleDateRange()" [style]="{'cursor':'pointer'}">
+                    <p-checkbox label="Date Range" [(ngModel)]="useDateRange" [ngModelOptions]="{standalone: true}" [binary]="true" [style]="{'cursor':'pointer'}"></p-checkbox>
+                </span>
             </div>
             <div class="p-col-1 p-md-1 p-lg-1"><b>{{'Date From'| translate}}</b></div>
             <div class="p-col-3 p-md-3 p-lg-3">
-                <p-calendar></p-calendar>
+                <p-calendar dateFormat="dd-mm-yy" formControlName="dateFrom"></p-calendar>
+                <div class="error" *ngIf="f.dateFrom.touched && f.dateFrom.invalid">
+                    <span>Date From is Mandatory Field*</span>
+                </div>
             </div>
         </div>
         <div class="p-grid">
             <div class="p-col-1 p-md-1 p-lg-1"><b>{{'Customer Name'| translate}}</b></div>
             <div class="p-col-3 p-md-3 p-lg-3">
                 <p-dropdown [options]="customerNameList" placeholder="--- Select Customer Name ---"
-                    optionLabel="locationMasterLocationName">
+                    optionLabel="locationMasterLocationName" [showClear]="true" formControlName="customerName">
                 </p-dropdown>
+                <div class="error" *ngIf="f.customerName.touched && f.customerName.invalid">
+                    <span>Customer Name is Mandatory Field*</span>
+                </div>
             </div>
-            <div class="p-col-2 p-md-2 p-lg-2">
-                
-            </div>
+            <div class="p-col-2 p-md-2 p-lg-2"></div>
             <div class="p-col-1 p-md-1 p-lg-1"><b>{{'Date To'| translate}}</b></div>
             <div class="p-col-3 p-md-3 p-lg-3">
-                <p-calendar></p-calendar>
+                <p-calendar dateFormat="dd-mm-yy" formControlName="dateTo"></p-calendar>
+                <div class="error" *ngIf="f.dateTo.touched && f.dateTo.invalid">
+                    <span>Date To is Mandatory Field*</span>
+                </div>
             </div>
         </div>
-        <div class="p-col-12" style="justify-content: flex-end; display: flex">
-            <button pButton class="ui-button-info" [label]='"Submit"| translate'></button>
+        <div class="p-col-10" style="justify-content: flex-end; display: flex">
+            <button pButton class="ui-button-info" [label]='"Submit"| translate' (click)="getFilteredcustomerEnquiryReport()"></button>
             <button pButton class="ui-button-warning" [label]='"Clear"| translate'></button>
         </div>
     </p-panel>

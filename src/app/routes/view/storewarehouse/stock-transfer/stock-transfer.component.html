@@ -96,9 +96,9 @@
                 <div class="ui-grid-col-10">
                     <textarea class="p-col-2" formControlName="Narration"
                         style="min-height:80px;width:100%;margin-top:5px;" pInputTextarea></textarea>
-                </div>
-                <div class="error" *ngIf="f.Narration.touched && f.Narration.invalid">
-                    <span>Item Name is Mandatory Field*</span>
+                        <div class="error" *ngIf="f.Narration.touched && f.Narration.invalid">
+                            <span>Narration is Mandatory Field*</span>
+                        </div>
                 </div>
             </div>
         </p-panel>
@@ -115,14 +115,19 @@
                         [(ngModel)]="selectedCustomer" pInputText />
                     <button pButton type="button" (click)="showAllCustomers()" icon="pi pi-search"></button>
                 </div>
+                <div class="error" *ngIf="f.CustomerName.touched && f.CustomerName.invalid">
+                    <span>Customer Name is Mandatory Field*</span>
+                </div>
             </div>
             <label>{{'Department :'| translate}}</label>
             <div class="p-lg-10">
                 <div class="ui-inputgroup">
-                    <!-- <input class="p-lg-12" pInputText [disabled]="customerDesc" /> -->
                     <p-dropdown style="width: 100%;" [options]="departmentList" formControlName="Department"
                         optionLabel="Department_Master_Department_Name">
                     </p-dropdown>
+                </div>
+                <div class="error" *ngIf="f.Department.touched && f.Department.invalid">
+                    <span>Department is Mandatory Field*</span>
                 </div>
             </div>
             <div class="p-lg-10">
@@ -156,8 +161,8 @@
     <p-toolbar>
         <div class="ui-toolbar-group-left">
             <button pButton type="button" label="Show" icon="fa fa-search" class="ui-button-success"></button>
-            <button pButton type="button" label="Ok" icon="fa fa-check" class="ui-button-info"></button>
             <button pButton type="button" label="Add" icon="fa fa-plus" class="ui-button-info"></button>
+            <button pButton type="button" label="Ok" icon="fa fa-check" class="ui-button-success"></button>
         </div>
     </p-toolbar>
     <div class="card">
