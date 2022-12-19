@@ -55,13 +55,13 @@ export class DamageEntryComponent implements OnInit {
   cols: any;
   ngOnInit(): void {
     this.cols = [
-      { field: 'Item_Master_Item_ID', header: 'Item Id' },
-      { field: 'Item_Master_Item_Name', header: 'Item Name' },
-      { field: 'Item_Master_Part_No', header: 'Unit' },
-      { field: 'Item_Master_Part_No', header: 'Part No' },
-      { field: 'Item_Master_Part_No', header: 'Price' },
-      { field: 'Item_Master_Part_No', header: 'Amount' },
-      { field: 'Item_Master_Barcode', header: 'Item Barcode' },
+      { field: 'ItemId', header: 'Item Id' },
+      { field: 'ItemName', header: 'Item Name' },
+      { field: 'Unit', header: 'Unit' },
+      { field: 'PartNo', header: 'Part No' },
+      { field: 'Price', header: 'Price' },
+      { field: 'PartNo', header: 'Amount' },
+      { field: 'Barcode', header: 'Item Barcode' },
       { field: 'Remarks', header: 'Remarks' },
       { field: 'Action', header: 'Actions' }
     ];
@@ -151,11 +151,11 @@ export class DamageEntryComponent implements OnInit {
       // rowHeaders: true,
       columns: [
         {
-          data: 'Item_Master_Item_ID',
+          data: 'ItemId',
           type: 'text',
         },
         {
-          data: 'Item_Master_Item_Name',
+          data: 'ItemName',
           type: 'text',
         },
         {
@@ -163,7 +163,7 @@ export class DamageEntryComponent implements OnInit {
           type: 'text',
         },
         {
-          data: 'Item_Master_Part_No',
+          data: 'PartNo',
           type: 'text',
         },
         {
@@ -175,7 +175,7 @@ export class DamageEntryComponent implements OnInit {
           type: 'text',
         },
         {
-          data: 'Item_Master_Barcode',
+          data: 'Barcode',
           type: 'text',
         },
         {
@@ -237,29 +237,29 @@ export class DamageEntryComponent implements OnInit {
     this.displayListing = true;
   }
   datasetDE: any = [
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Flower', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Paint', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Toy Car', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Petrolium', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Diesel', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Cartoon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Football', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Snacks', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false }
+    { ItemId: 4, ItemName: 'Flower', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Paint', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Toy Car', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Petrolium', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Diesel', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Cartoon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Football', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Snacks', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { ItemId: 4, ItemName: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', PartNo: 'Cs6', Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false }
   ];
   editable: boolean = false;
-  beingEdited: any;
+  beingEdited: DamageEntryItem;
   toggleEditable(x: string, event: string) {
     if (!this.editable || event.trim() === 'cancel') {
       this.datasetDE.forEach(element => {
-        if (element.Item_Master_Item_Name === x) {
+        if (element.ItemName === x) {
           element.editable = !element.editable;
           this.editable = !this.editable;
           if (element.editable) {
@@ -275,31 +275,31 @@ export class DamageEntryComponent implements OnInit {
   }
   updateValue(key: any, id: string, value: any) {
     this.datasetDE.forEach(element => {
-      if (element.Item_Master_Item_ID === key) {
+      if (element.ItemId === key) {
         if (id.trim() === 'name')
-          this.beingEdited.Item_Master_Item_Name = value;
+          this.beingEdited.ItemName = value;
         else if (id.trim() === 'unit')
           this.beingEdited.Unit = value;
         else if (id.trim() === 'partno')
-          this.beingEdited.Item_Master_Part_No = value;
+          this.beingEdited.PartNo = value;
         else if (id.trim() === 'price')
           this.beingEdited.Price = value;
         else if (id.trim() === 'amount')
           this.beingEdited.Amount = value;
         else if (id.trim() === 'barcode')
-          this.beingEdited.Item_Master_Barcode = value;
+          this.beingEdited.Barcode = value;
         else if (id.trim() === 'remarks')
           this.beingEdited.Remarks = value;
       }
     });
     console.log(this.beingEdited);
   }
-  gridData:GridData[] = new Array<any>();
+  gridData:GridData[] = new Array<DamageEntryItem>();
   tempIterator:number = 0;
-  updateItem(item: any) {
-    if (this.beingEdited.Item_Master_Item_Name === null || this.beingEdited.Item_Master_Item_Name.length === 0 || this.beingEdited.Unit === null || this.beingEdited.Unit.length === 0 || this.beingEdited.Price === null || this.beingEdited.Price.length === 0 || this.beingEdited.Amount === null || this.beingEdited.Amount.length === 0 ||
-      this.beingEdited.Item_Master_Part_No === null || this.beingEdited.Item_Master_Part_No.length === 0 || this.beingEdited.Item_Master_Barcode === null || 
-      this.beingEdited.Item_Master_Barcode.length === 0 || this.beingEdited.Remarks === null || this.beingEdited.Remarks.length === 0 ){
+  updateItem() {
+    if (this.beingEdited.ItemName === null || this.beingEdited.ItemName.length === 0 || this.beingEdited.Unit === null || this.beingEdited.Unit.length === 0 || this.beingEdited.Price === null || this.beingEdited.Price.length === 0 || this.beingEdited.Amount === null || this.beingEdited.Amount.length === 0 ||
+      this.beingEdited.PartNo === null || this.beingEdited.PartNo.length === 0 || this.beingEdited.Barcode === null || 
+      this.beingEdited.Barcode.length === 0 || this.beingEdited.Remarks === null || this.beingEdited.Remarks.length === 0 ){
         this.messageService.add({ severity: 'error', summary: 'Alert', detail: 'Null Data Not Allowed' });
         return;
       }
@@ -316,6 +316,16 @@ export class DamageEntryComponent implements OnInit {
 interface GridData{
   ItemName?:string,
   Remarks?:string,
+}
+interface DamageEntryItem{
+  ItemId:string,
+  ItemName:string,
+  Unit:string,
+  PartNo?:string,
+  Price:string,
+  Amount:string,
+  Barcode:string,
+  Remarks:string,
 }
 interface ButtonFlag {
   edit?: boolean; cancel?: boolean; update?: boolean;
