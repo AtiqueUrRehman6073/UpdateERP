@@ -17,15 +17,9 @@
 
         <button pButton type="button" class="ui-button-danger" (click)='delete()' [disabled]='!btnFlag.delete'
             label="Delete" icon="fa fa-trash"></button>
-
-
-
     </div>
 
     <div class="ui-toolbar-group-right">
-        <!-- <button pButton type="button" icon="pi pi-search"></button>
-            <button pButton type="button" icon="pi pi-calendar" class="ui-button-success"></button>
-            <button pButton type="button" icon="pi pi-times" class="ui-button-danger"></button> -->
         <div style="display: inline-block;" class="ui-inputgroup">
 
             <input type="text" pInputText [(ngModel)]='search' placeholder="Search">

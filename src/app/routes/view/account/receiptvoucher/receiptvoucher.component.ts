@@ -215,7 +215,6 @@ export class ReceiptvoucherComponent implements OnInit {
 
     this.receiptvoucherentry.beforeChangeRender = (change, source) => {
       this.ColumnSum();
-
     };
     this.receiptvoucherentry.afterRemoveRow = (index: number, amount: number) => {
       // console.log('beforeRemove: index: %d, amount: %d', index, amount);

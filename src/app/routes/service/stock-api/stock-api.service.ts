@@ -1,39 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockApiService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getStockLedgerReport(){
-    return this.http.post('http://localhost:53447/api/Stock/getStockLedgerReport','');
+  getStockLedgerReport() {
+    environment.apiRootURL
+    return this.http.post(environment.apiRootURL + 'Stock/getStockLedgerReport', '');
   }
-  getFilteredStockLedgerRpt(payload:any){
-    return this.http.post('http://localhost:53447/api/Stock/getFilteredStockLedgerRpt',payload);
+  getFilteredStockLedgerRpt(payload: any) {
+    return this.http.post(environment.apiRootURL + 'Stock/getFilteredStockLedgerRpt', payload);
   }
-  getStockMovementDetailsRpt(payload:any){
-    return this.http.post('http://localhost:53447/api/Stock/getStockMovementDetailsRpt',payload);
+  getStockMovementDetailsRpt(payload: any) {
+    return this.http.post(environment.apiRootURL + 'Stock/getStockMovementDetailsRpt', payload);
   }
-  getDetailsByItem(payload:any){
-    return this.http.post('http://localhost:53447/api/Stock/getDetailsByItem',payload);
+  getDetailsByItem(payload: any) {
+    return this.http.post(environment.apiRootURL + 'Stock/getDetailsByItem', payload);
   }
-  getStockVchDetails(payload:any){
+  getStockVchDetails(payload: any) {
     console.log(payload);
-    return this.http.post('http://localhost:53447/api/Stock/getStockVchDetails',payload);
+    return this.http.post(environment.apiRootURL + 'Stock/getStockVchDetails', payload);
   }
-  getAllItemsList(){
-    return this.http.get('http://localhost:53447/api/Stock/getAllItems');
+  getAllItemsList() {
+    return this.http.get(environment.apiRootURL + 'Stock/getAllItems');
   }
-  getAllJobs(){
-    return this.http.get('http://localhost:53447/api/Job/GetAllJob');
+  getAllDepartments() {
+    return this.http.get(environment.apiRootURL + 'Stock/getAllDepartments');
   }
-  getAllDepartments(){
-    return this.http.get('http://localhost:53447/api/Stock/getAllDepartments');
+  customerEnquiryReport() {
+    return this.http.get(environment.apiRootURL + 'Stock/customerEnquiryReport');
   }
-  customerEnquiryReport(){
-    return this.http.get('http://localhost:53447/api/Stock/customerEnquiryReport');
+  getAllJobs() {
+    return this.http.get(environment.apiRootURL + 'Job/GetAllJob');
   }
 }
