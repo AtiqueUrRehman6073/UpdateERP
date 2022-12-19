@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PrimeModuleModule } from 'src/app/shared/module/prime-module/prime-module.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule as sm } from 'src/app/shared/shared.module';
-import { SharedModule} from 'primeng';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { AccountRoutingModule } from './../account/account-routing.module';
 import { CommonModule } from '@angular/common';
 import { SaleRoutingModule } from './sale-routing.module';

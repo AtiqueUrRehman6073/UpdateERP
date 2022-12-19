@@ -12,7 +12,8 @@
             icon="fa fa-ban"></button>
         <button pButton type="button" [label]="btnFlag.save == true ? 'Save': 'Update'" icon="fa fa-floppy-o"
             class="ui-button-success"></button>
-        <button pButton type="button" label="List" icon="fa fa-list" class="ui-button-info"></button>
+        <button pButton type="button" label="List" icon="fa fa-list" class="ui-button-info"
+            (click)="diplayDamageEntryListing()"></button>
         <button pButton type="button" class="ui-button-danger" [disabled]='!btnFlag.delete' label="Delete"
             icon="fa fa-trash"></button>
     </div>
@@ -59,8 +60,9 @@
                                 <b>{{'Location'| translate}}</b>
                             </div>
                             <div class="p-col-2 p-md-2 p-lg-4" for="account">
-                                <p-dropdown [options]="locationList" placeholder="--- select location ---" optionLabel="locationMasterLocationName"
-                                    formControlName="location" [showClear]="true">
+                                <p-dropdown [options]="locationList" placeholder="--- select location ---"
+                                    optionLabel="locationMasterLocationName" formControlName="location"
+                                    [showClear]="true">
                                 </p-dropdown>
                                 <div class="error" *ngIf="f.location.touched && f.location.invalid">
                                     <span>Location is Mandatory Field*</span>
@@ -115,6 +117,43 @@
                         (click)="GetItemDetails(item.Item_Master_Item_ID)">{{item.Item_Master_Item_Name}}</a></td>
                 <td>{{item.Item_Master_Part_No}}</td>
                 <td>{{item.Item_Master_Barcode}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
+<p-dialog header="Damage Entry Listing" [(visible)]="displayListing" [modal]="true" [style]="{width: '60%'}"
+    [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table #dt2 [value]="datasetDE" [columns]="cols" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+            <div style="text-align: right">
+                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter"
+                    (input)="dt2.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of cols" [pSortableColumn]="col.field">{{col.header|translate}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{item.Item_Master_Item_ID}}</td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Item_Name}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Item_Name" style="width:100px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Barcode}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Barcode" style="width:80px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Remarks}}</span><input *ngIf="item.editable" type="text" [value]="item.Remarks" style="width:100px"/></td>
+                <td style="text-align: center;">
+                    <button pButton type="button" class="ui-button-info" icon="fa fa-pencil" (click)="toggleEditable(item.Item_Master_Item_Name)" *ngIf="!item.editable"></button>
+                    <button pButton type="button" class="ui-button-danger" icon="fa fa-trash" *ngIf="!item.editable"></button>
+                    <button pButton type="button" class="ui-button-danger" icon="fa fa-close" *ngIf="item.editable" (click)="toggleEditable(item.Item_Master_Item_Name)"></button>
+                    <button pButton type="button" class="ui-button-success" icon="fa fa-check" *ngIf="item.editable" (click)="updateItem()"></button>
+                </td>
             </tr>
         </ng-template>
     </p-table>

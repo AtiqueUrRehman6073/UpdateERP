@@ -56,17 +56,23 @@ export class DamageEntryComponent implements OnInit {
     this.cols = [
       { field: 'Item_Master_Item_ID', header: 'Item Id' },
       { field: 'Item_Master_Item_Name', header: 'Item Name' },
-      { field: 'Item_Master_Part_No', header: 'Item Part No' },
-      { field: 'Item_Master_Barcode', header: 'Item Barcode' }
+      { field: 'Item_Master_Part_No', header: 'Unit' },
+      { field: 'Item_Master_Part_No', header: 'Part No' },
+      { field: 'Item_Master_Part_No', header: 'Price' },
+      { field: 'Item_Master_Part_No', header: 'Amount' },
+      { field: 'Item_Master_Barcode', header: 'Item Barcode' },
+      { field: 'Remarks', header: 'Remarks' },
+      { field: 'Action', header: 'Actions' }
     ];
     this.btnFlag = { edit: false, cancel: false, save: true, update: false, delete: false };
     this.initializeControls();
-    this.getAllLocations();
+    /// this.getAllLocations();
+    this.locationList = [{ locationMasterLocationName: "Area Store" }, { locationMasterLocationName: "Sub Store" }];
     this.damageEntryFormGroup = new FormGroup({
-      voucherNo : new FormControl('0',Validators.required),
-      voucherDate : new FormControl(new Date(new Date().setFullYear(new Date().getFullYear())),Validators.required),
-      location : new FormControl('',Validators.required),
-      remarks : new FormControl('',Validators.required),
+      voucherNo: new FormControl('0', Validators.required),
+      voucherDate: new FormControl(new Date(new Date().setFullYear(new Date().getFullYear())), Validators.required),
+      location: new FormControl('', Validators.required),
+      remarks: new FormControl('', Validators.required),
     });
     this.breadcumbmodel = this.router.url.slice(1).split('/').map((k) => ({ label: k }));
     this.activatedroute.data.subscribe(data => {
@@ -144,62 +150,47 @@ export class DamageEntryComponent implements OnInit {
       // rowHeaders: true,
       columns: [
         {
-          data: 'account',
-          type: 'autocomplete',
-          source: (query, callback) => {
-            callback(this.list);
-          },
-          allowInvalid: false,
-          strict: false
-        },
-        {
-          data: 'credit',
-          type: 'numeric'
-        },
-        {
-          data: 'jobname',
-          type: 'autocomplete',
-          source: (query, callback) => {
-            callback(this.list);
-          },
-          allowInvalid: false,
-          strict: false
-        },
-        {
-          data: 'costcenter',
-          type: 'dropdown',
-          source: (query, callback) => {
-            callback(this.list);
-          },
-        },
-        {
-          data: 'narration',
+          data: 'itemId',
           type: 'text',
         },
         {
-          data: 'id',
-          type: 'numeric'
+          data: 'itemName',
+          type: 'text',
         },
         {
-          data: 'Temp',
-          type: 'numeric'
-
+          data: 'unit',
+          type: 'text',
         },
         {
-          data: 'Temp',
-          type: 'numeric'
-
+          data: 'partNo',
+          type: 'text',
+        },
+        {
+          data: 'price',
+          type: 'text',
+        },
+        {
+          data: 'amount',
+          type: 'text',
+        },
+        {
+          data: 'itemBarcode',
+          type: 'text',
+        },
+        {
+          data: 'remarks',
+          type: 'text',
         }
       ],
       colHeaders: [
-        this.translate.instant('A'),
-        this.translate.instant('B'),
-        this.translate.instant('C'),
-        this.translate.instant('D'),
-        this.translate.instant('E'),
-        this.translate.instant('F'),
-        this.translate.instant('G'),
-        this.translate.instant('H')
+        this.translate.instant('Item Id'),
+        this.translate.instant('Item Name'),
+        this.translate.instant('Unit'),
+        this.translate.instant('Part No'),
+        this.translate.instant('Price'),
+        this.translate.instant('Amount'),
+        this.translate.instant('Barcode'),
+        this.translate.instant('Remarks')
       ],
       manualRowMove: true,
       manualColumnMove: true,
@@ -236,6 +227,41 @@ export class DamageEntryComponent implements OnInit {
         .reduce((sum, current) => sum + current.credit, 0);
       this.damageEntryFormGroup.controls.ReceiptVoucherMasterDrAmount.setValue(sum1);
     }
+  }
+
+  //////    12-19-22  //////
+
+  displayListing: boolean = false;
+  diplayDamageEntryListing() {
+    this.displayListing = true;
+  }
+  datasetDE: any = [
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Flower', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Paint', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Toy Car', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Petrolium', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Diesel', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Cartoon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Football', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Snacks', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false }
+  ];
+  editable: boolean = false;
+  toggleEditable(x: string) {
+    this.datasetDE.forEach(element => {
+      if (element.Item_Master_Item_Name === x)
+        element.editable = !element.editable;
+    });
+  }
+  updateItem(){
+    this.messageService.add({ severity: 'succes', summary: 'Alert', detail: 'Data Updated Successfully' });
   }
 }
 interface ButtonFlag {
