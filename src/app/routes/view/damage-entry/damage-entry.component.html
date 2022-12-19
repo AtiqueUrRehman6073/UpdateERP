@@ -69,13 +69,13 @@
                                 </div>
                             </div>
                             <div class="p-col-2 p-md-2 p-lg-2" for="account">
-                                <b>{{'Remarks'| translate}}</b>
+                                <b>{{'Narration'| translate}}</b>
                             </div>
                             <div class="p-col-4 p-md-4 p-lg-4" for="account">
                                 <textarea style="min-height:80px;width:100%;margin-top:5px;" formControlName="remarks"
                                     pInputTextarea></textarea>
                                 <div class="error" *ngIf="f.remarks.touched && f.remarks.invalid">
-                                    <span>Remarks is Mandatory Field*</span>
+                                    <span>Narration is Mandatory Field*</span>
                                 </div>
                             </div>
                         </div>
@@ -141,18 +141,18 @@
         <ng-template pTemplate="body" let-item>
             <tr>
                 <td>{{item.Item_Master_Item_ID}}</td>
-                <td><span *ngIf="!item.editable">{{item.Item_Master_Item_Name}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Item_Name" style="width:100px"/></td>
-                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
-                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
-                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
-                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
-                <td><span *ngIf="!item.editable">{{item.Item_Master_Barcode}}</span><input *ngIf="item.editable" type="text" [value]="item.Item_Master_Barcode" style="width:80px"/></td>
-                <td><span *ngIf="!item.editable">{{item.Remarks}}</span><input *ngIf="item.editable" type="text" [value]="item.Remarks" style="width:100px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Item_Name}}</span><input #itemName *ngIf="item.editable" (input)="updateValue(item.Item_Master_Item_ID,'name',itemName.value)" type="text" [value]="item.Item_Master_Item_Name" style="width:100px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Unit}}</span><input #itemUnit *ngIf="item.editable" (input)="updateValue(item.Item_Master_Item_ID,'unit',itemUnit.value)" type="text" [value]="item.Unit" style="width:50px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Part_No}}</span><input #itemPartNo *ngIf="item.editable" (input)="updateValue(item.Item_Master_Item_ID,'partno',itemPartNo.value)" type="text" [value]="item.Item_Master_Part_No" style="width:50px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Price}}</span><input #itemPrice *ngIf="item.editable" (input)="updateValue(item.Item_Master_Item_ID,'price',itemPrice.value)" type="text" [value]="item.Price" style="width:50px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Amount}}</span><input #itemAmount *ngIf="item.editable" (input)="updateValue(item.Item_Master_Item_ID,'amount',itemAmount.value)" type="text" [value]="item.Amount" style="width:50px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Item_Master_Barcode}}</span><input #itemBarcode *ngIf="item.editable" (input)="updateValue(item.Item_Master_Item_ID,'barcode',itemBarcode.value)" type="text" [value]="item.Item_Master_Barcode" style="width:80px"/></td>
+                <td><span *ngIf="!item.editable">{{item.Remarks}}</span><input #remarks *ngIf="item.editable" (input)="updateValue(item.Item_Master_Item_ID,'remarks',remarks.value)" type="text" [value]="item.Remarks" style="width:100px"/></td>
                 <td style="text-align: center;">
-                    <button pButton type="button" class="ui-button-info" icon="fa fa-pencil" (click)="toggleEditable(item.Item_Master_Item_Name)" *ngIf="!item.editable"></button>
+                    <button pButton type="button" class="ui-button-info" icon="fa fa-pencil" (click)="toggleEditable(item.Item_Master_Item_Name,'edit')" *ngIf="!item.editable"></button>
                     <button pButton type="button" class="ui-button-danger" icon="fa fa-trash" *ngIf="!item.editable"></button>
-                    <button pButton type="button" class="ui-button-danger" icon="fa fa-close" *ngIf="item.editable" (click)="toggleEditable(item.Item_Master_Item_Name)"></button>
-                    <button pButton type="button" class="ui-button-success" icon="fa fa-check" *ngIf="item.editable" (click)="updateItem()"></button>
+                    <button pButton type="button" class="ui-button-danger" icon="fa fa-close" *ngIf="item.editable" (click)="toggleEditable(item.Item_Master_Item_Name,'cancel')"></button>
+                    <button pButton type="button" class="ui-button-success" icon="fa fa-check" *ngIf="item.editable" (click)="updateItem(item)"></button>
                 </td>
             </tr>
         </ng-template>

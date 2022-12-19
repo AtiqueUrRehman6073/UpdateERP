@@ -16,6 +16,7 @@ import { HotTableRegisterer } from '@handsontable/angular';
 import { summaryFileName } from '@angular/compiler/src/aot/util';
 import { DropDownValidator } from 'src/app/shared/validator/customvalidtor';
 import { StockApiService } from 'src/app/routes/service/stock-api/stock-api.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-damage-entry',
@@ -36,7 +37,7 @@ export class DamageEntryComponent implements OnInit {
   locationList: Array<any>;
   btnFlag: ButtonFlag;
   private hotRegisterer = new HotTableRegisterer();
-  hotid = 'receiptVouchrEntry';
+  hotid = 'damageEntry';                                            //////////  Updated
   constructor(private activatedroute: ActivatedRoute,
     private service: StockApiService,
     private messageService: MessageService,
@@ -150,35 +151,35 @@ export class DamageEntryComponent implements OnInit {
       // rowHeaders: true,
       columns: [
         {
-          data: 'itemId',
+          data: 'Item_Master_Item_ID',
           type: 'text',
         },
         {
-          data: 'itemName',
+          data: 'Item_Master_Item_Name',
           type: 'text',
         },
         {
-          data: 'unit',
+          data: 'Unit',
           type: 'text',
         },
         {
-          data: 'partNo',
+          data: 'Item_Master_Part_No',
           type: 'text',
         },
         {
-          data: 'price',
+          data: 'Price',
           type: 'text',
         },
         {
-          data: 'amount',
+          data: 'Amount',
           type: 'text',
         },
         {
-          data: 'itemBarcode',
+          data: 'Item_Master_Barcode',
           type: 'text',
         },
         {
-          data: 'remarks',
+          data: 'Remarks',
           type: 'text',
         }
       ],
@@ -236,33 +237,85 @@ export class DamageEntryComponent implements OnInit {
     this.displayListing = true;
   }
   datasetDE: any = [
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Flower', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Paint', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Toy Car', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Petrolium', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Diesel', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Cartoon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Football', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Snacks', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
-    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false }
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Flower', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Paint', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Toy Car', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Petrolium', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Diesel', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Cartoon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Football', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Snacks', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false },
+    { Item_Master_Item_ID: 4, Item_Master_Item_Name: 'Balloon', Unit: '004', Price: '$1000', Amount: '1400', Item_Master_Part_No: 'Cs6', Item_Master_Barcode: '2164616314', Remarks: 'No Remark Yet', editable: false }
   ];
   editable: boolean = false;
-  toggleEditable(x: string) {
+  beingEdited: any;
+  toggleEditable(x: string, event: string) {
+    if (!this.editable || event.trim() === 'cancel') {
+      this.datasetDE.forEach(element => {
+        if (element.Item_Master_Item_Name === x) {
+          element.editable = !element.editable;
+          this.editable = !this.editable;
+          if (element.editable) {
+            this.beingEdited = element;
+          }
+          else {
+            this.beingEdited = null;
+          }
+        }
+      });
+    }
+    else this.messageService.add({ severity: 'error', summary: 'Alert', detail: 'You can edit one item at a time ' });
+  }
+  updateValue(key: any, id: string, value: any) {
     this.datasetDE.forEach(element => {
-      if (element.Item_Master_Item_Name === x)
-        element.editable = !element.editable;
+      if (element.Item_Master_Item_ID === key) {
+        if (id.trim() === 'name')
+          this.beingEdited.Item_Master_Item_Name = value;
+        else if (id.trim() === 'unit')
+          this.beingEdited.Unit = value;
+        else if (id.trim() === 'partno')
+          this.beingEdited.Item_Master_Part_No = value;
+        else if (id.trim() === 'price')
+          this.beingEdited.Price = value;
+        else if (id.trim() === 'amount')
+          this.beingEdited.Amount = value;
+        else if (id.trim() === 'barcode')
+          this.beingEdited.Item_Master_Barcode = value;
+        else if (id.trim() === 'remarks')
+          this.beingEdited.Remarks = value;
+      }
     });
+    console.log(this.beingEdited);
   }
-  updateItem(){
-    this.messageService.add({ severity: 'succes', summary: 'Alert', detail: 'Data Updated Successfully' });
+  gridData:GridData[] = new Array<any>();
+  tempIterator:number = 0;
+  updateItem(item: any) {
+    if (this.beingEdited.Item_Master_Item_Name === null || this.beingEdited.Item_Master_Item_Name.length === 0 || this.beingEdited.Unit === null || this.beingEdited.Unit.length === 0 || this.beingEdited.Price === null || this.beingEdited.Price.length === 0 || this.beingEdited.Amount === null || this.beingEdited.Amount.length === 0 ||
+      this.beingEdited.Item_Master_Part_No === null || this.beingEdited.Item_Master_Part_No.length === 0 || this.beingEdited.Item_Master_Barcode === null || 
+      this.beingEdited.Item_Master_Barcode.length === 0 || this.beingEdited.Remarks === null || this.beingEdited.Remarks.length === 0 ){
+        this.messageService.add({ severity: 'error', summary: 'Alert', detail: 'Null Data Not Allowed' });
+        return;
+      }
+    console.log(this.beingEdited);
+    this.gridData[this.tempIterator] = this.beingEdited;
+    this.tempIterator++;
+    console.log(this.gridData);
+    this.hotRegisterer.getInstance(this.hotid).updateSettings({ data: this.gridData, readOnly: true });
+    this.messageService.add({ severity: 'success', summary: 'Alert', detail: 'Data Updated Successfully' });
   }
+  ////// Update the data on grid is done in the above function
+  ////// Referred from : Check the Update Form Grid function in receipt Voucher to Study the handsontable update grid data settings 
+}
+interface GridData{
+  ItemName?:string,
+  Remarks?:string,
 }
 interface ButtonFlag {
   edit?: boolean; cancel?: boolean; update?: boolean;

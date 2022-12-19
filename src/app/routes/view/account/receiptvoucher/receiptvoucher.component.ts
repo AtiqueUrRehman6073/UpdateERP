@@ -500,12 +500,9 @@ export class ReceiptvoucherComponent implements OnInit {
     this.accountTransactionList = Rcpt.accountsTransactions;
     // this.jobArray.find(j => j.jobMasterJobName.trim()  === k.jobname.trim()).jobMasterId,
     const gridData: GridData[] = Rcpt.receiptVoucherDetails.map(k => {
-
       let accountId: string = k.receiptVoucherDetailsCrAcNo != null ? this.acctArry.find(l => l.match(k.receiptVoucherDetailsCrAcNo)) : null;
       let jobId: string = (k.receiptVoucherDetailsJobId != null) ? this.jobArry.find(l =>
         l.match(k.receiptVoucherDetailsJobId.toString())) : null;
-
-
       return {
         account: accountId,
         credit: k.receiptVoucherDetailsCrAmount,
