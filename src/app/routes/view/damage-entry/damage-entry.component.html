@@ -152,7 +152,7 @@
                     <button pButton type="button" class="ui-button-info" icon="fa fa-pencil" (click)="toggleEditable(item.ItemName,'edit')" *ngIf="!item.editable"></button>
                     <button pButton type="button" class="ui-button-danger" icon="fa fa-trash" *ngIf="!item.editable"></button>
                     <button pButton type="button" class="ui-button-danger" icon="fa fa-close" *ngIf="item.editable" (click)="toggleEditable(item.ItemName,'cancel')"></button>
-                    <button pButton type="button" class="ui-button-success" icon="fa fa-check" *ngIf="item.editable" (click)="updateItem(item)"></button>
+                    <button pButton type="button" class="ui-button-success" icon="fa fa-check" *ngIf="item.editable" (click)="updateItem()"></button>
                 </td>
             </tr>
         </ng-template>
